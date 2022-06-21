@@ -25,10 +25,11 @@ io.on('connection', (client) => {
         return callback(personas);
     });
 
-    client.on('crear-mensaje', (data) => {
+    client.on('crear-mensaje', (data, callback) => {
         const persona = usuarios.getPersona(client.id);
         const mensaje = crearMensaje(persona.nombre, data.mensaje);
         client.broadcast.to(persona.sala).emit('crear-mensaje', mensaje);
+        callback(mensaje);
     });
 
     client.on('disconnect', () => {
