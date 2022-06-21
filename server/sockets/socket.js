@@ -20,6 +20,7 @@ io.on('connection', (client) => {
         const personas = usuarios.getPersonasPorSala(data.sala);
         //console.log(data);
         client.broadcast.to(data.sala).emit('lista-personas', usuarios.getPersonasPorSala(data.sala));
+        client.broadcast.to(data.sala).emit('crear-mensaje', crearMensaje('Administrador', `${data.nombre} se unio`));
 
 
         return callback(personas);
